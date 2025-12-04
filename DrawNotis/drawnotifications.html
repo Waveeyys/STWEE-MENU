@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crimson Notification Bar</title>
+  <style>
+    /* Global reset and transparency enforcement */
+    html, body {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent !important;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* Box-sizing reset for consistency */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+    }
+
+    /* Crimson-tinted rectangle with top-rounded corners */
+    .top-rounded {
+      width: 1000px;
+      height: 50px;
+      background-color: var(--rect-color, rgba(183, 0, 35, 0.95));
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.65);
+      border-radius: 20px 20px 0 0; /* Rounded top corners only */
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      background-clip: padding-box;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-rounded"></div>
+
+  <script>
+    // Listen for messages to dynamically update the rectangle color
+    window.addEventListener('message', function(event) {
+      if (event.data.color) {
+        document.documentElement.style.setProperty('--rect-color', event.data.color);
+      }
+    });
+  </script>
+</body>
+</html>
