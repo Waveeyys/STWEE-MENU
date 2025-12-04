@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu Background</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 563px;
+      height: 450px;
+      background: transparent;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transform: translateZ(0); /* Forces GPU compositing to prevent black lines */
+    }
+    body {
+      background: radial-gradient(circle at top, rgba(200, 18, 46, 0.25), rgba(15, 15, 15, 0.95));
+    }
+
+    .rounded-bg {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 0.85));
+      border-radius: 0 0 25px 25px;
+      overflow: hidden;
+      will-change: transform, opacity; /* Hints browser to optimize for animations/changes */
+      transform: translateZ(0); /* Extra GPU layer to kill black line artifacts */
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="rounded-bg" id="menuBg"></div>
+  <script>
+    window.addEventListener("message", function(event) {
+      const message = JSON.parse(event.data);
+      const menuBg = document.getElementById("menuBg");
+
+      if (message.type === "updateMenuBg" && message.data) {
+        if (message.data.color) {
+          menuBg.style.background = message.data.color;
+        }
+        if (message.data.height) {
+          const newHeight = message.data.height + "px";
+          document.documentElement.style.height = newHeight;
+          document.body.style.height = newHeight;
+          menuBg.style.height = newHeight;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

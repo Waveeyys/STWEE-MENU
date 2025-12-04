@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scroll Handle</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 200px;
+      height: 308px;
+      background: transparent !important;
+      overflow: hidden;
+    }
+    .rounded-handle {
+      width: 100%;
+      height: 100%;
+      background: var(--handle-color, rgba(255, 255, 255, 1));
+      border-radius: 80px;
+      transition: opacity 0.2s ease-in-out;
+      opacity: 1;
+      background-clip: padding-box; /* Fixes black lines around corners */
+      overflow: hidden; /* Ensures no visual artifacts */
+    }
+  </style>
+</head>
+<body>
+  <div class="rounded-handle" id="scrollHandle"></div>
+  <script>
+    const scrollHandle = document.getElementById("scrollHandle");
+  
+    function fadeHandle() {
+      scrollHandle.style.opacity = "0";
+      setTimeout(() => {
+        scrollHandle.style.opacity = "1";
+      }, 150);
+    }
+  
+    // Polling for updates using invokeNative
+    setInterval(() => {
+      const scrollState = window.invokeNative ? window.invokeNative("getScrollState") : null;
+      if (scrollState === "up" || scrollState === "down") {
+        fadeHandle();
+      }
+    }, 100);
+  </script>  
+</body>
+</html>

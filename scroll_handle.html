@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scroll Handle</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 200px;
+      height: 224px;
+      background: transparent !important;
+      overflow: hidden;
+    }
+    body {
+      background: radial-gradient(circle, rgba(183,0,35,0.3), rgba(10,10,10,0.95));
+    }
+    .rounded-handle {
+      width: 100%;
+      height: 100%;
+      background: var(--handle-color, rgba(183, 0, 35, 0.9));
+      border-radius: 16px;
+      transition: opacity 0.2s ease-in-out, transform 0.2s ease;
+      opacity: 1;
+      box-shadow: 0 0 12px rgba(183, 0, 35, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <div class="rounded-handle" id="scrollHandle"></div>
+  <script>
+    const scrollHandle = document.getElementById("scrollHandle");
+    
+    function fadeHandle() {
+      scrollHandle.style.opacity = "0";
+      setTimeout(() => {
+        scrollHandle.style.opacity = "1";
+      }, 150);
+    }
+
+    window.addEventListener("message", function(event) {
+      const message = JSON.parse(event.data);
+      if (message.type === "updateScrollHandle") {
+        document.documentElement.style.setProperty('--handle-color', message.color);
+      } else if (message.type === "scrollUp" || message.type === "scrollDown") {
+        fadeHandle();
+      }
+    });
+  </script>
+</body>
+</html>

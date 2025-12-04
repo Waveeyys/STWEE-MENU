@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purple Rectangle</title>
+  <style>
+    /* Global reset and transparency enforcement */
+    html, body {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent !important;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* Box-sizing reset for consistency */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(10, 10, 10, 0.75);
+    }
+
+    .top-rounded {
+      width: 400px;
+      height: 20px;
+      background-color: var(--rect-color, rgba(183, 0, 35, 0.95));
+      border-radius: 20px 20px 0 0;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      background-clip: padding-box;
+      overflow: hidden;
+      box-shadow: 0 0 12px rgba(183, 0, 35, 0.8);
+      border: 1px solid rgba(255, 120, 120, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="top-rounded"></div>
+
+  <script>
+    // Listen for messages to dynamically update the rectangle color
+    window.addEventListener('message', function(event) {
+      if (event.data.color) {
+        document.documentElement.style.setProperty('--rect-color', event.data.color);
+      }
+    });
+  </script>
+</body>
+</html>

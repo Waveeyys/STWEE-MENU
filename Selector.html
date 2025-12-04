@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Small Rounded Rectangle</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 563px;
+      height: 22px; /* 1/14th of 310px */
+      background: transparent !important;
+      overflow: hidden;
+    }
+    
+    body {
+      background: rgba(8, 8, 8, 0.75);
+      height: 22px;
+      overflow: hidden;
+    }
+
+    .rounded-bar {
+      width: 100%;
+      height: 100%;
+      background: var(--bar-color, rgba(183, 0, 35, 0.9));
+      border-radius: 12px;
+      background-clip: padding-box;
+      overflow: hidden;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      box-sizing: border-box;
+      border: 2px solid rgba(255, 100, 100, 0.6);
+      box-shadow: 0 0 12px rgba(183, 0, 35, 0.8);
+    }
+  </style>
+</head>
+<body>
+  <div class="rounded-bar" id="roundedBar"></div>
+  <script>
+    window.addEventListener("message", function(event) {
+      const message = JSON.parse(event.data);
+      if (message.type === "updateRoundedBar" && message.data) {
+        const bar = document.getElementById("roundedBar");
+        if (message.data.color) {
+          bar.style.background = message.data.color;
+        }
+        if (message.data.height) {
+          document.documentElement.style.height = message.data.height + "px";
+          document.body.style.height = message.data.height + "px";
+          bar.style.height = message.data.height + "px";
+        }
+      }
+    });
+  </script>
+</body>
+</html>
