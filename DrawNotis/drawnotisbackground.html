@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crimson Notification Background</title>
+  <style>
+    /* Reset default styles and enforce transparency */
+    html, body {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent !important;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Ensure consistent box-sizing */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    /* Center the element and ensure smooth transparent edges */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .bottom-rounded {
+      width: 1000px;
+      height: 40px;
+      background-color: var(--rect-color, rgba(18, 18, 18, 0.95));
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.65);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border: 1px solid rgba(183, 0, 35, 0.45);
+    }
+  </style>
+</head>
+<body>
+  <div class="bottom-rounded"></div>
+
+  <script>
+    // Listen for messages to dynamically update the rectangle color
+    window.addEventListener('message', function(event) {
+      if (event.data.color) {
+        document.documentElement.style.setProperty('--rect-color', event.data.color);
+      }
+    });
+  </script>
+</body>
+</html>

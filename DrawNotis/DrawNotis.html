@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Box</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle at 20% 20%, rgba(183, 0, 35, 0.25), rgba(8, 8, 8, 0.95));
+        }
+
+        .rounded-rectangle {
+            position: relative;
+            width: 1000px;
+            min-height: 100px; /* Minimum height */
+            border-radius: 20px;
+            overflow: hidden;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            width: 100%;
+            height: 40px;
+            background-color: var(--top-color, rgba(183, 0, 35, 0.95));
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+        }
+
+        .content {
+            width: 100%;
+            height: calc(100% - 40px);
+            background-color: var(--bottom-color, rgba(10, 10, 10, 0.9));
+        }
+    </style>
+</head>
+<body>
+    <div class="rounded-rectangle">
+        <div class="header"></div>
+        <div class="content"></div>
+    </div>
+
+    <script>
+        window.addEventListener('message', function(event) {
+            if (event.data.topColor) {
+                document.documentElement.style.setProperty('--top-color', event.data.topColor);
+            }
+            if (event.data.bottomColor) {
+                document.documentElement.style.setProperty('--bottom-color', event.data.bottomColor);
+            }
+            if (event.data.newHeight) {
+                document.querySelector(".rounded-rectangle").style.height = event.data.newHeight + "px";
+            }
+        });
+    </script>
+</body>
+</html>
